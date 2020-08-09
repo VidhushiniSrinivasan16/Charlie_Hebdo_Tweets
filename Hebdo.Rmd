@@ -1,0 +1,167 @@
+```{r}
+library(entropart)
+library(boot)
+library(vegan)
+library(simboot)
+library(openxlsx)
+#install.packages("simboot")
+```
+
+
+```{r}
+data_1=read.csv("Hebdo I neg.csv",T,sep=',')
+nrow(data_1)
+data_2=read.csv("hebdo I pos.csv",T,sep=',')
+nrow(data_2)
+data_3=read.csv("hebdo we neg.csv",T,sep=',')
+nrow(data_3)
+data_4=read.csv("Hebdo we pos.csv",T,sep=',')
+nrow(data_4)
+```
+
+
+
+
+Obtained Results using chaowong Jost Adjustment I - 6.2 WE - 7.05
+
+Existing results I- 6.17 WE - 7.01
+
+Obtaining Frequencies for pronouns “I” and “WE” with polarities “POS” and “NEG”
+
+```{r}
+fWith_I_POS = data_2$freq
+fWith_I_NEG = data_1$freq
+fWith_WE_POS = data_4$freq
+fWith_WE_NEG = data_3$freq
+```
+
+
+
+Entropy for pronouns “I” and “WE” with polarities “POS” and “NEG”
+
+
+```{r}
+HWith_I_POS = Shannon(fWith_I_POS)/log(2)
+HWith_I_NEG = Shannon(fWith_I_NEG)/log(2)
+HWith_WE_POS = Shannon(fWith_WE_POS)/log(2)
+HWith_WE_NEG = Shannon(fWith_WE_NEG)/log(2)
+
+HWith_I_POS
+HWith_I_NEG
+HWith_WE_POS
+HWith_WE_NEG
+```
+
+
+Obtained Results:
+
+I POS - 5.37 I NEG - 5.01 WE POS - 6.11 WE NEG - 6.19
+
+Existing Results:
+
+I POS - 5.34 I NEG - 4.99 WE POS - 6.08 WE NEG - 6.13
+
+CI For I
+
+```{r}
+#estShannon(fWith_I)
+Actual_entropy =Shannon(fWith_I)/log(2)
+LB=(Shannon(fWith_I)-estShannon(fWith_I)$varest)/log(2)
+UB=(Shannon(fWith_I)+estShannon(fWith_I)$varest)/log(2)
+Actual_entropy
+LB
+UB
+```
+ CI 
+ 
+ LB - 6.201603
+ UB - 6.201956
+ 
+ calculated shannon entropy - 6.20178
+
+CI for WE
+```{r}
+Actual_entropy =Shannon(fWith_WE)/log(2)
+LB=(Shannon(fWith_WE)-estShannon(fWith_WE)$varest)/log(2)
+UB=(Shannon(fWith_WE)+estShannon(fWith_WE)$varest)/log(2)
+Actual_entropy
+LB
+UB
+```
+
+ CI 
+ 
+ LB - 7.052101
+ UB - 7.052536 
+ calculated shannon entropy - 7.052318
+ 
+ CI for I-POS
+```{r}
+ntweets_I_POS  = length(fWith_I_POS)
+Actual_entropy =Shannon(fWith_I_POS)/log(2)
+LB=(Shannon(fWith_I_POS)-estShannon(fWith_I_POS)$varest)/log(2)
+UB=(Shannon(fWith_I_POS)+estShannon(fWith_I_POS)$varest)/log(2)
+Actual_entropy
+LB
+UB
+```
+ CI for I-POS 
+ 
+ LB - 5.3737
+ UB - 5.374283 
+ calculated shannon entropy - 5.373991
+ 
+ CI For I-NEG
+```{r}
+ntweets_I_NEG  = length(fWith_I_NEG)
+Actual_entropy =Shannon(fWith_I_NEG)/log(2)
+LB=(Shannon(fWith_I_NEG)-estShannon(fWith_I_NEG)$varest)/log(2)
+UB=(Shannon(fWith_I_NEG)+estShannon(fWith_I_NEG)$varest)/log(2)
+Actual_entropy
+LB
+UB
+```
+CI for I-NEG 
+ 
+ LB - 5.01863
+ UB - 5.01952
+ calculated shannon entropy - 5.019075
+ 
+CI for WE-POS 
+```{r}
+ntweets_WE_POS  = length(fWith_WE_POS)
+Actual_entropy =Shannon(fWith_WE_POS)/log(2)
+LB=(Shannon(fWith_WE_POS)-estShannon(fWith_WE_POS)$varest)/log(2)
+UB=(Shannon(fWith_WE_POS)+estShannon(fWith_WE_POS)$varest)/log(2)
+Actual_entropy
+LB
+UB
+```
+ CI for WE-POS
+ 
+ LB - 6.113955
+ UB - 6.114597
+ calculated shannon entropy - 6.114276
+
+
+CI for WE-NEG
+```{r}
+ntweets_WE_NEG  = length(fWith_WE_NEG)
+Actual_entropy =Shannon(fWith_WE_NEG)/log(2)
+LB=(Shannon(fWith_WE_NEG)-estShannon(fWith_WE_NEG)$varest)/log(2)
+UB=(Shannon(fWith_WE_NEG)+estShannon(fWith_WE_NEG)$varest)/log(2)
+Actual_entropy
+LB
+UB
+
+#(Shannon(fWith_WE_NEG)+sqrt(estShannon(fWith_WE_NEG)$varest)*2)/log(2)
+``` 
+
+
+ CI for WE-NEG 
+ 
+ LB - 6.192856
+ UB - 6.19398
+ calculated shannon entropy - 6.193418
+ 
+ 
